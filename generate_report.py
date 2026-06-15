@@ -14,7 +14,8 @@ from sklearn.preprocessing import StandardScaler
 
 BASE_DIR = r"I:\class_project\python"
 OUTPUT_DOC = os.path.join(BASE_DIR, "Python数据分析与展示_项目实践报告（2026春）.doc")
-OUTPUT_DOCX = OUTPUT_DOC + "x"
+OUTPUT_DOC_LATEST = os.path.join(BASE_DIR, "Python数据分析与展示_项目实践报告（2026春）_最新.doc")
+OUTPUT_DOCX = os.path.join(BASE_DIR, "_report_temp.docx")
 
 
 def set_run_font(run, size=12, bold=False):
@@ -352,7 +353,14 @@ def convert_to_doc(docx_path, doc_path):
 if __name__ == "__main__":
     stats = load_project_stats()
     docx_path = build_document(stats)
-    convert_to_doc(docx_path, OUTPUT_DOC)
+    target = OUTPUT_DOC_LATEST
+    try:
+        convert_to_doc(docx_path, OUTPUT_DOC)
+        target = OUTPUT_DOC
+        print(f"报告已更新: {OUTPUT_DOC}")
+    except Exception as e:
+        print(f"原报告文件被占用（请先关闭 Word）: {e}")
+        convert_to_doc(docx_path, OUTPUT_DOC_LATEST)
+        print(f"报告已保存为新文件: {OUTPUT_DOC_LATEST}")
     if os.path.exists(OUTPUT_DOCX):
         os.remove(OUTPUT_DOCX)
-    print(f"报告已更新: {OUTPUT_DOC}")
