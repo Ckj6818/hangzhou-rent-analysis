@@ -7,3 +7,5 @@ __pycache__/
 venv/
 *.log
 .llm-chat-history/
+~$*.doc
+~$*.docx

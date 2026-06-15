@@ -9,9 +9,8 @@ from docx.oxml.ns import qn
 from docx.shared import Inches, Pt
 
 BASE_DIR = r"I:\class_project\python"
-TEMPLATE_GLOB = os.path.join(BASE_DIR, "*项目实践报告模板*.doc")
-OUTPUT_DOCX = os.path.join(BASE_DIR, "Python数据分析与展示_项目实践报告（2026春）.docx")
 OUTPUT_DOC = os.path.join(BASE_DIR, "Python数据分析与展示_项目实践报告（2026春）.doc")
+OUTPUT_DOCX = OUTPUT_DOC + "x"  # 临时文件，生成后删除
 
 
 def set_run_font(run, size=12, bold=False):
@@ -344,4 +343,6 @@ def convert_to_doc(docx_path, doc_path):
 if __name__ == "__main__":
     docx_path = build_document()
     convert_to_doc(docx_path, OUTPUT_DOC)
+    if os.path.exists(OUTPUT_DOCX):
+        os.remove(OUTPUT_DOCX)
     print(f"报告已生成: {OUTPUT_DOC}")
